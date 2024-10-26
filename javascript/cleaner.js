@@ -472,7 +472,7 @@ function createButtons(gallery) {
             action: sendToExtras
         },
         {
-            text: '↩️',
+            text: '🧹',
             id: '_send_to_cleaner',
             tooltip: "Send back to cleaner",
             action: sendToCleaner
