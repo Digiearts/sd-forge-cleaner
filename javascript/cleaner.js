@@ -411,23 +411,26 @@ function sendToExtras(resultImage) {
     setTimeout(() => {
         gradioApp().querySelector('#extras_tab').click();
         
-        // Send image to the correct container
-        const imgContainer = gradioApp().querySelector('#extras_image');
-        if (imgContainer) {
-            fetch(resultImage.src)
-                .then(res => res.blob())
-                .then(blob => {
-                    const file = new File([blob], 'image.png', { type: 'image/png' });
-                    const dt = new DataTransfer();
-                    dt.items.add(file);
-                    const fileInput = imgContainer.querySelector('input[type="file"]');
-                    if (fileInput) {
-                        fileInput.files = dt.files;
-                        fileInput.dispatchEvent(new Event('change', { bubbles: true }));
-                    }
-                });
-        }
-    }, 200);
+        // Add a small delay before sending the image
+        setTimeout(() => {
+            // Send image to the correct container
+            const imgContainer = gradioApp().querySelector('#extras_image');
+            if (imgContainer) {
+                fetch(resultImage.src)
+                    .then(res => res.blob())
+                    .then(blob => {
+                        const file = new File([blob], 'image.png', { type: 'image/png' });
+                        const dt = new DataTransfer();
+                        dt.items.add(file);
+                        const fileInput = imgContainer.querySelector('input[type="file"]');
+                        if (fileInput) {
+                            fileInput.files = dt.files;
+                            fileInput.dispatchEvent(new Event('change', { bubbles: true }));
+                        }
+                    });
+            }
+        }, 100);  // Add extra delay for image sending
+    }, 100);  // Increased initial delay
 }
 
 function sendToCleaner(resultImage) {
