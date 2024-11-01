@@ -427,7 +427,7 @@ function sendToExtras(resultImage) {
                     }
                 });
         }
-    }, 100);
+    }, 200);
 }
 
 function sendToCleaner(resultImage) {
