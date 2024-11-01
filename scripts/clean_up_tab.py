@@ -46,6 +46,14 @@ def clean_wrapper(foreground, background):
     
     return lama.clean_object(background, mask)
 
+def process_gallery_output(img):
+    if img is None:
+        return None
+    # If img is already a tuple (image, caption), extract just the image
+    if isinstance(img, tuple):
+        img = img[0]
+    return img
+
 def on_ui_tabs():
     with gr.Blocks() as object_cleaner_tab:
         for tab_name in ["Clean up", "Clean up upload"]:
@@ -95,7 +103,7 @@ def on_ui_tabs():
                             inputs=inputs,
                             outputs=[result_gallery]
                         ).then(
-                            fn=lambda x: [x],  # Ensure full view display
+                            fn=process_gallery_output,  # Process the output before displaying
                             inputs=[result_gallery],
                             outputs=[result_gallery]
                         )
